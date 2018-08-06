@@ -1,10 +1,11 @@
 {
-	"name": "Assistant",
-	"version": "0.1",
-	"description": "A karmalicity viewing assistant",
-	"permissions": ["clipboardRead", "clipboardWrite", "tabs", "activeTab"],
+	"name": "Karmalicity Assistant",
+	"version": "1.0.0",
+	"description": "A karmalicity viewing assistant by Aaron Maynard.  Uses browser API to collect and share data across tabs.",
+	"permissions": ["clipboardRead", "clipboardWrite", "tabs", "activeTab", "storage"],
 	"background": {
-      "scripts": ["background.js"]
+      "scripts": ["background.js"],
+	  "persistent": true
     },
 	"content_scripts": [ {
 		"matches": ["<all_urls>"],
