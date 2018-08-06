@@ -10,3 +10,6 @@ The directory holding the manifest file can be added as an extension in develope
 3. Click the LOAD UNPACKED button and select the extension directory.
 
 ![](https://developer.chrome.com/static/images/get_started/load_extension.png)
+
+Once the extension is loaded, all you have to do is click on the little icon.  
+> Note: You must also have a Karmalicity account to use this extension!
