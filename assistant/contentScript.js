@@ -3,7 +3,8 @@ Global variables, loaded on every page open
 */
 
 var title = window.location.href; // Gets the url of the webpage
-var credits; // Setting the default value to zero
+var credits;
+var runningTime;
 var node; // All of the html for the node in reference to target id
 var targetId;
 var data;
@@ -20,35 +21,60 @@ if (title == "http://www.karmalicity.com/get-points/") { // We have loaded on th
 	
 } else if (title.includes("listing")) { // We have loaded on the listing page
 	
-	targetId = getTargetId(); // Gets the target id
-	var urlIMDb = document.querySelector(".btn-karma").getAttribute("data-url"); // Gets the listings IMDb link
-	
-	sendDataToExtension(targetId);
-	
-	document.querySelector(".btn-karma").click(); // Click the button
-	
-	/*
-	Extension should now be on IMDb page
-	*/
-	
-	setTimeout(function(){
-		getCreditsFromExtension("credits");
+	// First check that we have not reached the daily limit
+	var activityCol = document.getElementById("rightColumn");
+	var tmpNode = document.createElement( "div" );
+	tmpNode.appendChild( activityCol.cloneNode( true ) );
+	var str = tmpNode.innerHTML;
+	// look for 60 out of 60
+	if (str.includes("You've completed 60 out of 60 possible actions so far today.")) { // completed daily activity
+		/*
+		Stop extension
+		*/
+		
+		
+	} else {
+		
+		targetId = getTargetId(); // Gets the target id
+		console.log(targetId);
+		var urlIMDb = document.querySelector(".btn-karma").getAttribute("data-url"); // Gets the listings IMDb link
+		
+		sendDataToExtension(targetId);
+		
+		document.querySelector(".btn-karma").click(); // Click the button
+		
+		/*
+		Extension should now be on IMDb page
+		*/
+		
 		setTimeout(function(){
-			credits = credits.replace('key_','');
-			document.getElementById("imdb-view-answer").setAttribute('value',credits) // Fills credits
-			document.querySelector(".btn-success").click(); // Click the button
-		}, 1000);
-	}, 3000);
+			getCreditsFromExtension("credits");
+			setTimeout(function(){
+				credits = credits.replace('key_','');
+				document.getElementById("imdb-view-answer").setAttribute('value',credits); // Fills credits
+				document.querySelector(".btn-success").click(); // Click the button
+			}, 1000);
+		}, 4000);
+	}
 	
 } else if (title.includes("imdb")) { // We have loaded on the IMDb page
 	// Get the targetId from the extension
-	getIdFromExtension("target");
 	setTimeout(function(){
-		console.log(targetId);
-		obtainCredits(targetId);
-		credits = "key_" + credits;
-		sendDataToExtension(credits);
-		close();
+		getIdFromExtension("target");
+		setTimeout(function(){
+			console.log(targetId);
+			if (targetId == "Tips:"){
+				obtainRunningTime();
+				runningTime = "key_" + runningTime;
+				credits = runningTime;
+				sendDataToExtension(credits);
+			} else{
+				obtainCredits(targetId);
+				credits = "key_" + credits;
+				sendDataToExtension(credits);
+			}
+			close();
+		}, 1000);
 	}, 1000);
 	
 } else{
@@ -80,28 +106,62 @@ function sendDataToExtension(request){
 
 function obtainCredits(targetId){
 	// Extension has completed loading the imdb page
+	console.log(targetId);
 	node = document.getElementById(targetId);
 	
 	// Convert the node to a string
 	var tmpNode = document.createElement( "div" );
 	tmpNode.appendChild( node.cloneNode( true ) );
 	var str = tmpNode.innerHTML;
-	tmpNode = node = null; // prevent memory leaks in IE
+	//tmpNode = node = null; // prevent memory leaks in IE
 	
 	// Obtain the credits from the string
 	var innerHTML = str.substr(0, str.indexOf('credit'));
 	var last5 = innerHTML.slice(-5);
 	var tmpArr = last5.match(/\d+/g).map(Number);
 	credits = tmpArr[0];
-	//window.open('','_self').close();
+}
+
+function obtainRunningTime(){
+	// Extension has completed loading the imdb page
+	node = document.querySelector("time");
+	if (node === null) { // The page does not have a time setActive
+		runningTime = "0";
+	} else {
+		// Convert the node to a string
+		var tmpNode = document.createElement( "div" );
+		tmpNode.appendChild( node.cloneNode( true ) );
+		var str = tmpNode.innerHTML;
+		//tmpNode = node = null; // prevent memory leaks in IE
+		
+		// Obtain the running time from the string
+		var innerHTML = str.substr(0, str.indexOf('min'));
+		var last5 = innerHTML.slice(-5);
+		var time = last5.replace(/h/g, '');
+		// At this point we will have something like "1 30"
+		var timeArray = time.split(" ");
+		var minutes
+		if (timeArray[0] === 0) { // Time is less than one hour
+			minutes = timeArray[3];
+		} else {
+			minutes = parseInt(timeArray[0])*60+parseInt(timeArray[1]);
+		}
+		// would be 90
+		runningTime = minutes;
+	}
 }
 
 function getTargetId(){
 	// Get the target
+	targetId = "";
 	var target = document.querySelectorAll("strong")[1].innerHTML.replace(/['"]+/g, '');
-	/*
-	If the target is Tips: then we are on a running length page.  Need to account for this in a later version.
-	*/
+	
+	if (target === "Tips:") { // We caught a running length listing
+		console.log("We need running time");
+		targetId = ("Tips:");
+		return targetId;
+	}	
+	
 	/*
 	Here we have recieved the target ie actor, actress, producer
 	What we need to do is correspond it with the appropriate ending
@@ -140,7 +200,7 @@ function getTargetId(){
 		target = "sound_department";
 	} else if (target == "Visual Effects"){
 		target = "visual_effects";
-	} else if (target == "Camera and Electrical Department"){
+	} else if (target == "Camera And Electrical Department"){
 		target = "camera_department";
 	} else if (target == "Special Effects"){
 		target = "special_effects";
