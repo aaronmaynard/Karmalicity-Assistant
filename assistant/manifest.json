@@ -1,11 +1,11 @@
 {
 	"name": "Karmalicity Assistant",
 	"version": "1.0.0",
-	"description": "A karmalicity viewing assistant by Aaron Maynard.  Uses browser API to collect and share data across tabs.",
+	"description": "A karmalicity viewing assistant. Uses browser API to collect and share data across tabs. By Aaron Maynard & GitHub Contributers.",
 	"permissions": ["clipboardRead", "clipboardWrite", "tabs", "activeTab", "storage"],
 	"background": {
       "scripts": ["background.js"],
-	  "persistent": true
+	  "persistent": false
     },
 	"content_scripts": [ {
 		"matches": ["<all_urls>"],
@@ -25,5 +25,6 @@
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     },
+	"homepage_url": "https://github.com/aaronmaynard/Karmalicity-Assistant",
 	"manifest_version": 2
 }
