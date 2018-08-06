@@ -1,14 +1,16 @@
 {
-  "name": "Assistant",
-  "version": "0.1",
-  "description": "A karmalicity viewing assistant",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
-  "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+	"name": "Assistant",
+	"version": "0.1",
+	"description": "A karmalicity viewing assistant",
+	"permissions": ["clipboardRead", "clipboardWrite", "tabs", "activeTab"],
+	"background": {
+      "scripts": ["background.js"]
     },
-    "page_action": {
-      "default_popup": "popup.html",
+	"content_scripts": [ {
+		"matches": ["<all_urls>"],
+		"js": ["contentScript.js"]
+	} ],
+    "browser_action": {
       "default_icon": {
         "16": "images/icon16.png",
         "32": "images/icon32.png",
@@ -22,5 +24,5 @@
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     },
-  "manifest_version": 2
+	"manifest_version": 2
 }
