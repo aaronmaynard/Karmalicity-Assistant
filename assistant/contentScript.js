@@ -49,7 +49,7 @@ function obtainCredits(targetId){
 function obtainRunningTime(){
 	// Obtain the node containing the target value
 	node = document.querySelector("time");
-	if (node === null) {
+	if (node == null) {
 		// The page does not have a time setActive, default to zero
 		key = "0";
 	} else {
@@ -63,8 +63,8 @@ function obtainRunningTime(){
 		var time = last5.replace(/h/g, '');
 		// At this point we will have something like "1 30"
 		var timeArray = time.split(" ");
-		var minutes
-		if (timeArray[0] === 0) { // Time is less than one hour
+		var minutes;
+		if (timeArray[0] == 0) { // Time is less than one hour
 			key = timeArray[3];
 		} else {
 			key = parseInt(timeArray[0])*60+parseInt(timeArray[1]);
@@ -139,6 +139,8 @@ function getTargetId(){
 		targetId = "filmo-head-casting_director";
 	}else if(target == "Casting Department"){
 		targetId = "filmo-head-casting_department";
+	}else if(target == "Composer"){
+		targetId = "filmo-head-composer";
 	}else{
 		targetId = "The developer needs to add more types";
 		alert(targetId);
@@ -209,9 +211,11 @@ if(title == "http://www.karmalicity.com/get-points/"){
 		targetId = getTargetId();
 		// Sends the targetId to the extension
 		sendDataToExtension(targetId);
-		// Opens up the IMDb page
-		document.querySelector(".btn-karma").click();
 		console.log(targetId);
+		// Opens up the IMDb page
+		setTimeout(function(){
+			document.querySelector(".btn-karma").click();
+		}, 500);
 		
 		/*
 		Extension should now be on IMDb page
@@ -225,8 +229,8 @@ if(title == "http://www.karmalicity.com/get-points/"){
 				key = key.replace('key_','');
 				document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
 				document.querySelector(".btn-success").click(); // Click the button
-			}, 1000);
-		}, 4000);
+			}, 3000);
+		}, 5000);
 	}
 	
 }else if(title.includes("imdb")){
@@ -234,14 +238,16 @@ if(title == "http://www.karmalicity.com/get-points/"){
 	setTimeout(function(){
 		targetId = getIdFromExtension("target");
 		setTimeout(function(){
-			console.log(targetId);
+			console.log("TargetId is: " + targetId);
 			if (targetId == "Tips:" || targetId == undefined){
 				// Running time listing
+				console.log("Running time listing");
 				obtainRunningTime();
 				key = "key_" + key;
 				sendDataToExtension(key);
 			} else{
 				// Credit listing
+				console.log("Credit listing");
 				obtainCredits(targetId);
 				key = "key_" + key;
 				sendDataToExtension(key);
