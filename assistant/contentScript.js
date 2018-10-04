@@ -107,12 +107,20 @@ function getTargetId(){
 		targetId = "filmo-head-casting_director";
 	}else if(target == "Costume And Wardrobe Department"){
 		targetId = "filmo-head-costume_department";
-	}else if(target == "Casting Director"){
-		targetId = "filmo-head-casting_director";
 	}else if(target == "Casting Department"){
 		targetId = "filmo-head-casting_department";
 	}else if(target == "Composer"){
 		targetId = "filmo-head-composer";
+	}else if(target == "Animation Department"){
+		targetId = "filmo-head-animation_department";
+	}else if(target == "Art Director"){
+		targetId = "filmo-head-art_director";
+	}else if(target == "Editor"){
+		targetId = "filmo-head-editor";
+	}else if(target == "Costime Designer"){
+		targetId = "filmo-head-costume_designer";
+	}else if(target == "Set Decorator"){
+		targetId = "filmo-head-set_decorator";
 	}else{
 		targetId = "The developer needs to add more types";
 		alert(targetId);
