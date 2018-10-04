@@ -45,32 +45,6 @@ function obtainCredits(targetId){
 	key = tmpArr[0];
 	return key;
 }
-// Key registered as running time
-function obtainRunningTime(){
-	// Obtain the node containing the target value
-	node = document.querySelector("time");
-	if (node == null) {
-		// The page does not have a time setActive, default to zero
-		key = "0";
-	} else {
-		// Convert the node to a string
-		var tmpNode = document.createElement( "div" );
-		tmpNode.appendChild( node.cloneNode( true ) );
-		var str = tmpNode.innerHTML;
-		// Obtain the running time from the string
-		var innerHTML = str.substr(0, str.indexOf('min'));
-		var last5 = innerHTML.slice(-5);
-		var time = last5.replace(/h/g, '');
-		// At this point we will have something like "1 30"
-		var timeArray = time.split(" ");
-		var minutes;
-		if (timeArray[0] == 0) { // Time is less than one hour
-			key = timeArray[3];
-		} else {
-			key = parseInt(timeArray[0])*60+parseInt(timeArray[1]);
-		}
-	}
-}
 // Gets the next available IMDb listing
 function getListing(){
 	// Search for an IMDb tag
@@ -87,9 +61,7 @@ function getTargetId(){
 	// Get the target
 	var target = document.querySelectorAll("strong")[1].innerHTML.replace(/['"]+/g, '');
 	// We caught a running length listing
-	if(target === "Tips:"){
-		targetId = ("Tips:");
-	}else if(target == "Actor"){
+	if(target == "Actor"){
 		targetId = "filmo-head-actor";
 	}else if(target == "Actress"){
 		targetId = "filmo-head-actress";
@@ -170,20 +142,6 @@ function openNewTabOrNewWindow(targetURL){
     a.target = '_blank';
     fireClickEvent(a);
 }
-// Checks if the daily limit has been reached
-function checkDailyLimit(){
-	var activityCol = document.getElementById("rightColumn");
-	var tmpNode = document.createElement( "div" );
-	tmpNode.appendChild( activityCol.cloneNode( true ));
-	var str = tmpNode.innerHTML;
-	if (str.includes("You've completed 60 out of 60 possible actions so far today.")) { // completed daily activity
-		// Daily limit reached
-		dLR = true;
-	}else{
-		// Daily limit not yet reached
-		dLR - false;
-	}
-}
 
 /*
 Page Validator
@@ -200,38 +158,31 @@ if(title == "http://www.karmalicity.com/get-points/"){
 	}
 	openNewURLInTheSameWindow(urlListing);
 }else if(title.includes("listing")){
-	// Check if the daily limit has been reached
-	checkDailyLimit();
-	if(dLR){
-		// Disable the extension
-		// Implement a method of turning off or disabling hte extension
-		alert("You have reached your limit for Daily Actions!");
-	}else{
-		// Gets the target id
-		targetId = getTargetId();
-		// Sends the targetId to the extension
-		sendDataToExtension(targetId);
-		console.log(targetId);
-		// Opens up the IMDb page
+	// Gets the target id
+	targetId = getTargetId();
+	// Sends the targetId to the extension
+	sendDataToExtension(targetId);
+	console.log(targetId);
+	// Opens up the IMDb page
+	setTimeout(function(){
+		document.querySelector(".btn-karma").click();
+	}, 500);
+	
+	/*
+	Extension should now be on IMDb page
+	*/
+	
+	// Allow the extension to gather data from IMDb page
+	setTimeout(function(){
+		getCreditsFromExtension("credits");
 		setTimeout(function(){
-			document.querySelector(".btn-karma").click();
-		}, 500);
-		
-		/*
-		Extension should now be on IMDb page
-		*/
-		
-		// Allow the extension to gather data from IMDb page
-		setTimeout(function(){
-			getCreditsFromExtension("credits");
-			setTimeout(function(){
-				console.log(key);
-				key = key.replace('key_','');
-				document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
-				document.querySelector(".btn-success").click(); // Click the button
-			}, 3000);
-		}, 5000);
-	}
+			console.log(key);
+			key = key.replace('key_','');
+			document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
+			document.querySelector(".btn-success").click(); // Click the button
+		}, 3000);
+	}, 5000);
+	
 	
 }else if(title.includes("imdb")){
 	// Get the targetId from the extension
