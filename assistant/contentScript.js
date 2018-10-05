@@ -156,29 +156,36 @@ Page Validator
 Checks which page we are currently loaded on.
 */
 if(title == "http://www.karmalicity.com/get-points/"){
-	// Gets the url of the next IMDb listing
-	var urlListing; 
-	setTimeout(function(){
-		urlListing = getListing();
-	
-		console.log(urlListing);
-		// Opens the listing on the current page
-		if(urlListing.includes("null")){
-			// There currently is no IMDb listing
-			// Implement a waiting period.
-			var w = window.open('','','width=100,height=100')
-			w.document.write('Waiting for more listings...\nPausing for 10 seconds')
-			w.focus()
-			setTimeout(function(){
-				w.close();
-			}, 10000)
-			setTimeout(function(){
-			   window.location.reload(1);
-			}, 10000);
-		}else{
-			openNewURLInTheSameWindow(urlListing);
-		}
-	}, 500);
+	// Check if the daily limit has been reached.
+	if(document.getElementById("limit-reached-container")){
+		setTimeout(function(){
+			window.alert('You have reached your daily limit!\nYou may now close Karmalicity.');
+		}, 1000);
+	}else{
+		// Gets the url of the next IMDb listing
+		var urlListing; 
+		setTimeout(function(){
+			urlListing = getListing();
+		
+			console.log(urlListing);
+			// Opens the listing on the current page
+			if(urlListing.includes("null")){
+				// There currently is no IMDb listing
+				// Implement a waiting period.
+				var w = window.open('','','width=100,height=100')
+				w.document.write("<p> Waiting for more listings. Refreshing in <span id='countdowntimer'>30 </span> seconds.</p><script type='text/javascript'> var timeleft = 30; var downloadTimer = setInterval(function(){ timeleft--; document.getElementById('countdowntimer').textContent = timeleft; if(timeleft <= 0) clearInterval(downloadTimer); },1000);</script>")
+				w.focus()
+				setTimeout(function(){
+					w.close();
+				}, 30000)
+				setTimeout(function(){
+				   window.location.reload(1);
+				}, 30000);
+			}else{
+				openNewURLInTheSameWindow(urlListing);
+			}
+		}, 500);
+	}
 }else if(title.includes("listing")){
 	// Gets the target id
 	targetId = getTargetId();
