@@ -107,12 +107,20 @@ function getTargetId(){
 		targetId = "filmo-head-casting_director";
 	}else if(target == "Costume And Wardrobe Department"){
 		targetId = "filmo-head-costume_department";
-	}else if(target == "Casting Director"){
-		targetId = "filmo-head-casting_director";
 	}else if(target == "Casting Department"){
 		targetId = "filmo-head-casting_department";
 	}else if(target == "Composer"){
 		targetId = "filmo-head-composer";
+	}else if(target == "Animation Department"){
+		targetId = "filmo-head-animation_department";
+	}else if(target == "Art Director"){
+		targetId = "filmo-head-art_director";
+	}else if(target == "Editor"){
+		targetId = "filmo-head-editor";
+	}else if(target == "Costime Designer"){
+		targetId = "filmo-head-costume_designer";
+	}else if(target == "Set Decorator"){
+		targetId = "filmo-head-set_decorator";
 	}else{
 		targetId = "The developer needs to add more types";
 		alert(targetId);
@@ -149,14 +157,28 @@ Checks which page we are currently loaded on.
 */
 if(title == "http://www.karmalicity.com/get-points/"){
 	// Gets the url of the next IMDb listing
-	var urlListing = getListing(); 
-	// Opens the listing on the current page
-	if(urlListing.includes("null")){
+	var urlListing; 
+	setTimeout(function(){
+		urlListing = getListing();
+	
 		console.log(urlListing);
-		// There currently is no IMDb listing
-		// Implement a waiting period.
-	}
-	openNewURLInTheSameWindow(urlListing);
+		// Opens the listing on the current page
+		if(urlListing.includes("null")){
+			// There currently is no IMDb listing
+			// Implement a waiting period.
+			var w = window.open('','','width=100,height=100')
+			w.document.write('Waiting for more listings...\nPausing for 10 seconds')
+			w.focus()
+			setTimeout(function(){
+				w.close();
+			}, 10000)
+			setTimeout(function(){
+			   window.location.reload(1);
+			}, 10000);
+		}else{
+			openNewURLInTheSameWindow(urlListing);
+		}
+	}, 500);
 }else if(title.includes("listing")){
 	// Gets the target id
 	targetId = getTargetId();
