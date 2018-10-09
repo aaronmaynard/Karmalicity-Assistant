@@ -143,6 +143,8 @@ function getTargetId(){
 		targetId = "filmo-head-set_decorator";
 	}else if(target == "Sound Department"){
 		targetId = "filmo-head-sound_department";
+	}else if(target == "Soundtrack"){
+		targetId = "filmo-head-soundtrack";
 	}else if(target == "Special Effects"){
 		targetId = "filmo-head-special_effects";
 	}else if(target == "Stunts"){
@@ -244,7 +246,7 @@ if(title == "http://www.karmalicity.com/get-points/"){
 			key = key.replace('key_','');
 			document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
 			document.querySelector(".btn-success").click(); // Click the button
-		}, 4000);
+		}, 3000);
 	}, 5000);
 	
 	
