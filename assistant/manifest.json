@@ -1,7 +1,7 @@
 {
 	"name": "Karmalicity Assistant",
 	"short_name ": "Karma Assist",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "A karmalicity viewing assistant. Uses browser API to collect and share data across tabs. By Aaron Maynard & GitHub Contributers.",
 	"permissions": ["clipboardRead", "clipboardWrite", "tabs", "activeTab", "storage"],
 	"background": {
