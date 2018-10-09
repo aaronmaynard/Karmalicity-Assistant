@@ -65,62 +65,62 @@ function getTargetId(){
 		targetId = "filmo-head-actor";
 	}else if(target == "Actress"){
 		targetId = "filmo-head-actress";
-	}else if(target == "Writer"){
-		targetId = "filmo-head-writer";
-	}else if(target == "Producer"){
-		targetId = "filmo-head-producer";
+	}else if(target == "Animation Department"){
+		targetId = "filmo-head-animation_department";
+	}else if(target == "Archive Footage"){
+		targetId = "filmo-head-archive_footage";
+	}else if(target == "Art Department"){
+		targetId = "filmo-head-art_department";
+	}else if(target == "Art Director"){
+		targetId = "filmo-head-art_director";
+	}else if(target == "Camera And Electrical Department"){
+		targetId = "filmo-head-camera_department";
+	}else if(target == "Casting Department"){
+		targetId = "filmo-head-casting_department";
+	}else if(target == "Casting Director"){
+		targetId = "filmo-head-casting_director";
+	}else if(target == "Cinematographer"){
+		targetId = "filmo-head-cinematographer";
+	}else if(target == "Composer"){
+		targetId = "filmo-head-composer";
+	}else if(target == "Costume And Wardrobe Department"){
+		targetId = "filmo-head-costume_department";
+	}else if(target == "Costume Designer"){
+		targetId = "filmo-head-costume_designer";
+	}else if(target == "Director"){
+		targetId = "filmo-head-director";
+	}else if(target == "Editor"){
+		targetId = "filmo-head-editor";
+	}else if(target == "Location Management"){
+		targetId = "filmo-head-location_management";
 	}else if(target == "Miscellaneous Crew"){
 		targetId = "filmo-head-miscellaneous";
 	}else if(target == "Music Department"){
 		targetId = "filmo-head-music_department";
-	}else if(target == "Thanks"){
-		targetId = "filmo-head-thanks";
-	}else if(target == "Self"){
-		targetId = "filmo-head-self";
-	}else if(target == "Stunts"){
-		targetId = "filmo-head-stunts";
-	}else if(target == "Art Department"){
-		targetId = "filmo-head-art_department";
-	}else if(target == "Location Management"){
-		targetId = "filmo-head-location_management";
-	}else if(target == "Second Unit Director Or Assistant Director"){
-		targetId = "filmo-head-assistant_director";
-	}else if(target == "Director"){
-		targetId = "filmo-head-director";
-	}else if(target == "Archive Footage"){
-		targetId = "filmo-head-archive_footage";
-	}else if(target == "Cinematographer"){
-		targetId = "filmo-head-cinematographer";
-	}else if(target == "Sound Department"){
-		targetId = "filmo-head-sound_department";
-	}else if(target == "Visual Effects"){
-		targetId = "filmo-head-visual_effects";
-	}else if(target == "Camera And Electrical Department"){
-		targetId = "filmo-head-camera_department";
-	}else if(target == "Special Effects"){
-		targetId = "filmo-head-special_effects";
+	}else if(target == "Producer"){
+		targetId = "filmo-head-producer";
 	}else if(target == "Production Designer"){
 		targetId = "filmo-head-production_designer";
 	}else if(target == "Production Manager"){
 		targetId = "filmo-head-production_manager";
-	}else if(target == "Casting Director"){
-		targetId = "filmo-head-casting_director";
-	}else if(target == "Costume And Wardrobe Department"){
-		targetId = "filmo-head-costume_department";
-	}else if(target == "Casting Department"){
-		targetId = "filmo-head-casting_department";
-	}else if(target == "Composer"){
-		targetId = "filmo-head-composer";
-	}else if(target == "Animation Department"){
-		targetId = "filmo-head-animation_department";
-	}else if(target == "Art Director"){
-		targetId = "filmo-head-art_director";
-	}else if(target == "Editor"){
-		targetId = "filmo-head-editor";
-	}else if(target == "Costime Designer"){
-		targetId = "filmo-head-costume_designer";
+	}else if(target == "Second Unit Director Or Assistant Director"){
+		targetId = "filmo-head-assistant_director";
+	}else if(target == "Self"){
+		targetId = "filmo-head-self";
 	}else if(target == "Set Decorator"){
 		targetId = "filmo-head-set_decorator";
+	}else if(target == "Sound Department"){
+		targetId = "filmo-head-sound_department";
+	}else if(target == "Special Effects"){
+		targetId = "filmo-head-special_effects";
+	}else if(target == "Stunts"){
+		targetId = "filmo-head-stunts";
+	}else if(target == "Thanks"){
+		targetId = "filmo-head-thanks";
+	}else if(target == "Visual Effects"){
+		targetId = "filmo-head-visual_effects";
+	}else if(target == "Writer"){
+		targetId = "filmo-head-writer";
 	}else{
 		targetId = "The developer needs to add more types";
 		alert(targetId);
