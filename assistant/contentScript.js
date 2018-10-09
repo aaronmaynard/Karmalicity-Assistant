@@ -52,6 +52,7 @@ function obtainRunningTime(){
 	if (node == null) {
 		// The page does not have a time setActive, default to zero
 		key = "0";
+		console.log("Running time: " + key);
 	} else {
 		// Convert the node to a string
 		var tmpNode = document.createElement( "div" );
@@ -61,13 +62,18 @@ function obtainRunningTime(){
 		var innerHTML = str.substr(0, str.indexOf('min'));
 		var last5 = innerHTML.slice(-5);
 		var time = last5.replace(/h/g, '');
+		console.log("Time: " + time);
 		// At this point we will have something like "1 30"
 		var timeArray = time.split(" ");
-		var minutes;
+		console.log("Time Array: " + timeArray);
 		if (timeArray[0] == 0) { // Time is less than one hour
 			key = timeArray[3];
+			console.log("Minutes: " + key);
+			return key;
 		} else {
 			key = parseInt(timeArray[0])*60+parseInt(timeArray[1]);
+			console.log("Minutes: " + key);
+			return key;
 		}
 	}
 }
@@ -232,13 +238,13 @@ if(title == "http://www.karmalicity.com/get-points/"){
 	
 	// Allow the extension to gather data from IMDb page
 	setTimeout(function(){
-		getCreditsFromExtension("credits");
+		getCreditsFromExtension("submission");
 		setTimeout(function(){
-			console.log(key);
+			console.log("Key: " + key);
 			key = key.replace('key_','');
 			document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
 			document.querySelector(".btn-success").click(); // Click the button
-		}, 3000);
+		}, 4000);
 	}, 5000);
 	
 	
@@ -248,11 +254,13 @@ if(title == "http://www.karmalicity.com/get-points/"){
 		targetId = getIdFromExtension("target");
 		setTimeout(function(){
 			console.log("TargetId is: " + targetId);
-			if (targetId == "running_time" || targetId == undefined){
+			console.log("->" + targetId + "<-");
+			if (targetId == "running_time" || targetId == undefined || targetId == ""){
 				// Running time listing
 				console.log("Running time listing");
 				obtainRunningTime();
 				key = "key_" + key;
+				console.log("Key: " + key);
 				sendDataToExtension(key);
 			} else{
 				// Credit listing
