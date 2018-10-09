@@ -45,6 +45,32 @@ function obtainCredits(targetId){
 	key = tmpArr[0];
 	return key;
 }
+// Key registered as running time
+function obtainRunningTime(){
+	// Obtain the node containing the target value
+	node = document.querySelector("time");
+	if (node == null) {
+		// The page does not have a time setActive, default to zero
+		key = "0";
+	} else {
+		// Convert the node to a string
+		var tmpNode = document.createElement( "div" );
+		tmpNode.appendChild( node.cloneNode( true ) );
+		var str = tmpNode.innerHTML;
+		// Obtain the running time from the string
+		var innerHTML = str.substr(0, str.indexOf('min'));
+		var last5 = innerHTML.slice(-5);
+		var time = last5.replace(/h/g, '');
+		// At this point we will have something like "1 30"
+		var timeArray = time.split(" ");
+		var minutes;
+		if (timeArray[0] == 0) { // Time is less than one hour
+			key = timeArray[3];
+		} else {
+			key = parseInt(timeArray[0])*60+parseInt(timeArray[1]);
+		}
+	}
+}
 // Gets the next available IMDb listing
 function getListing(){
 	// Search for an IMDb tag
@@ -121,6 +147,9 @@ function getTargetId(){
 		targetId = "filmo-head-visual_effects";
 	}else if(target == "Writer"){
 		targetId = "filmo-head-writer";
+	}else if(target == "Tips:"){
+		// The listing is a running time listing
+		targetId = ("running_time");
 	}else{
 		targetId = "The developer needs to add more types";
 		alert(targetId);
@@ -219,7 +248,7 @@ if(title == "http://www.karmalicity.com/get-points/"){
 		targetId = getIdFromExtension("target");
 		setTimeout(function(){
 			console.log("TargetId is: " + targetId);
-			if (targetId == "Tips:" || targetId == undefined){
+			if (targetId == "running_time" || targetId == undefined){
 				// Running time listing
 				console.log("Running time listing");
 				obtainRunningTime();
