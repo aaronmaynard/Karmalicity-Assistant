@@ -30,7 +30,7 @@ function messagePassing(){
 				credits = request.greeting;
 			}
 			// Extension sends the credits to the content script [Karmalicity]
-			if(request.greeting.includes("credits")){
+			if(request.greeting.includes("submission")){
 				// Set the incoming request to the variable credits
 				sendResponse({farewell: (credits)});
 			}
