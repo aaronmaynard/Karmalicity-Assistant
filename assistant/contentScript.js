@@ -195,9 +195,10 @@ Checks which page we are currently loaded on.
 if(title == "http://www.karmalicity.com/get-points/"){
 	// Check if the daily limit has been reached.
 	if(document.getElementById("limit-reached-container")){
-		setTimeout(function(){
-			window.alert('You have reached your daily limit!\nYou may now close Karmalicity.');
-		}, 1000);
+		var w = window.open('','','width=350,height=300')
+		w.document.title = 'Karmalicity Assistant Helper';
+		w.document.write("<title>KA Helper</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>body { margin: 0; }ul { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #788894;}li { color: white; text-align: center; text-decoration: none;}div {border-radius: 25px;color: #3c763d;background-color: #dff0d8;width: 300px;border: 25px #d6e9c6;padding: 1px;margin: 20px;text-align: center;}</style></head><body><ul> <li><h1>Karmalicity Assistant</h1></ul><div><h2>Success!</h2></div><h3 style='margin: 10;'>We're all done, you have reached your daily limit.  You may now exit Karmalicity.  See you again tomorrow!</h3></body>")
+		w.focus()
 	}else{
 		// Gets the url of the next IMDb listing
 		var urlListing; 
@@ -209,12 +210,12 @@ if(title == "http://www.karmalicity.com/get-points/"){
 			if(urlListing.includes("null")){
 				// There currently is no IMDb listing
 				// Implement a waiting period.
-				var w = window.open('','','width=100,height=100')
-				w.document.write("<p> Waiting for more listings. Refreshing in <span id='countdowntimer'>30 </span> seconds.</p><script type='text/javascript'> var timeleft = 30; var downloadTimer = setInterval(function(){ timeleft--; document.getElementById('countdowntimer').textContent = timeleft; if(timeleft <= 0) clearInterval(downloadTimer); },1000);</script>")
+				var w = window.open('','','width=400,height=250')
+				w.document.write("<title>KA Helper</title><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><style>body { margin: 0; }ul { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #788894;}li { color: white; text-align: center; text-decoration: none;}</style></head><body><ul> <li><h1>Karmalicity Assistant</h1></ul><h2 style='color: #2e6c80; margin: 10;'>One moment please! <i class='fa fa-spinner fa-pulse'></i></h2><h3 style='margin: 10;'>Right now we're waiting for Karmalicity to load some more awesome listings.&nbsp; Thank you for your patience!&nbsp; We'll refresh the listings in <span style='color: #d83a3a' id='countdowntimer'>30</span> seconds.</h3><script type='text/javascript'> var timeleft = 30; var downloadTimer = setInterval(function(){ timeleft--; document.getElementById('countdowntimer').textContent = timeleft; if(timeleft <= 0) clearInterval(downloadTimer); },1000);</script></body>")
 				w.focus()
 				setTimeout(function(){
 					w.close();
-				}, 30000)
+				}, 30000);
 				setTimeout(function(){
 				   window.location.reload(1);
 				}, 30000);
