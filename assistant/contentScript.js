@@ -123,8 +123,12 @@ function getTargetId(){
 		targetId = "filmo-head-director";
 	}else if(target == "Editor"){
 		targetId = "filmo-head-editor";
+	}else if(target == "Editorial Department"){
+		targetId = "filmo-head-editorial_department";
 	}else if(target == "Location Management"){
 		targetId = "filmo-head-location_management";
+	}else if(target == "Makeup Department"){
+		targetId = "filmo-head-make_up_department";
 	}else if(target == "Miscellaneous Crew"){
 		targetId = "filmo-head-miscellaneous";
 	}else if(target == "Music Department"){
