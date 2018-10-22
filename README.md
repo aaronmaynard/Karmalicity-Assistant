@@ -5,6 +5,7 @@ A Karmalicity viewing assistant for autonomous point generation.
 ### Features
 - FREE!
 - No Ads
+- Runs while you work on other applications
 - Automated process for completing views
 - Easy One-Click startup
 - Process personal IMDb page listings
