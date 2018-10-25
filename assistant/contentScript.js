@@ -226,7 +226,7 @@ if(title == "http://www.karmalicity.com/get-points/"){
 			}else{
 				openNewURLInTheSameWindow(urlListing);
 			}
-		}, 500);
+		}, 2000);
 	}
 }else if(title.includes("listing")){
 	// Gets the target id
@@ -251,7 +251,7 @@ if(title == "http://www.karmalicity.com/get-points/"){
 			key = key.replace('key_','');
 			document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
 			document.querySelector(".btn-success").click(); // Click the button
-		}, 3000);
+		}, 1000);
 	}, 5000);
 	
 	
