@@ -251,7 +251,7 @@ if(title == "http://www.karmalicity.com/get-points/"){
 			key = key.replace('key_','');
 			document.getElementById("imdb-view-answer").setAttribute('value',key); // Fills credits
 			document.querySelector(".btn-success").click(); // Click the button
-		}, 1000);
+		}, 1500);
 	}, 5000);
 	
 	
